@@ -1,0 +1,19 @@
+- firewalld:
+    port: 80/tcp
+    permanent: yes
+    state: enabled
+    zone: public
+
+- firewalld:
+    port: 3000/tcp
+    permanent: yes
+    state: enabled
+    zone: public
+
+- firewalld:
+    port: 1337/tcp
+    permanent: yes
+    state: enabled
+    zone: public
+
+# httpd

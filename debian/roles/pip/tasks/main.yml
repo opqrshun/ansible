@@ -1,0 +1,45 @@
+# - name: 3.6venv ,3.7の場合不要?
+#   apt: name={{ item }} state=installed
+#   with_items:
+#    - python3-venv
+#    - python3-dev
+#    - python3-pip
+#   tags: ['python_dev']
+
+- name: venv
+  pip:
+    name: 
+      - mecab-python3
+      - python-docx
+      - pandas
+      - paramiko
+      - gensim
+      - pymagnitude
+      - mazer
+      - scrapy
+      - bs4
+      - gspread
+      - pydrive
+      - oauth2client
+      - torch
+      - tensorflow
+    virtualenv: "{{ home_path }}/venv/pydev"
+    # virtualenv_python: python3
+    virtualenv_command: /usr/bin/python3 -m venv
+    # virtualenv_command: /usr/local/bin/python3 -m venv
+  become_user: "{{user}}"
+
+# - name: create venv
+#   shell: python3 -m venv python1
+#   args:
+#     chdir: "{{ home_path }}/python"
+#   become: yes
+#   become_user: "{{user}}"
+#   when: not python3_bin.stat.exists
+
+- name: add alias
+  lineinfile: 
+    path: "{{home_path}}/.bashrc"
+    line: "alias pydev='source ~/venv/pydev/bin/activate'"
+  tags: never
+  # when: not python3_bin.stat.exists

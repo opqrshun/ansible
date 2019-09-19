@@ -1,0 +1,53 @@
+---
+# This playbook contains common plays that will be run on all nodes.
+
+# - name: apt update
+#   apt: name=* state=latest
+
+- name: Install common dependencies
+  apt: name={{ item }} state=installed
+  with_items:
+   # - libselinux-python
+   # - libsemanage-python
+   - python-setuptools
+   - tmux
+   - git
+   - nmap
+   - php
+   - htop
+   # - lsof
+   # - snapd
+
+- name: install the 'Development tools' package group
+  apt:
+    name: "build-essential"
+    state: present
+    force_apt_get: yes
+
+- name: github
+  snap:
+    name:
+      - github-desktop
+    channel: beta
+    classic: yes
+  tags: ['desktop']
+# - name: install dev package
+#   apt: name={{ item }} state=installed
+#   with_items:
+#    - bzip2-devel
+#    - gdbm-devel
+#    - libffi-devel
+#    - libuuid-devel
+#    - ncurses-devel
+#    - openssl-devel
+#    - readline-devel
+#    - sqlite-devel
+#    - tk-devel
+#    - wget
+#    - xz-devel
+#    - zlib-devel
+
+
+
+# - name: snap enable
+#   command: systemctl enable --now snapd.socket

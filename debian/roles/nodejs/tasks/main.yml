@@ -1,0 +1,38 @@
+
+
+# - name: check if nodejs already installed
+#   stat:
+#     path: /usr/local/bin/node
+#   register: nodejs_bin
+
+- name: node
+  snap:
+    name:
+      - node
+    channel: 10/stable
+    classic: yes
+
+- name: install n
+  npm:
+    name: n
+    state: present
+    global: yes
+  # when: not nodejs_bin.stat.exists
+
+- name: install version specific nodejs using n
+  shell: |
+    n latest
+  # when: not nodejs_bin.stat.exists
+
+- name: install yarn
+  npm:
+    name: yarn
+    state: present
+    global: yes
+
+# - name: install strapi
+#   npm:
+#     name: strapi@alpha
+#     state: present
+#     global: yes
+#   tags: strapi

@@ -1,0 +1,119 @@
+---
+- name: create user
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  become: yes
+  roles:
+    - create-user
+  tags: ['user']
+
+- name: exec common configuration
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  become: yes
+  roles:
+    - common
+  tags: ['common','setup',nodejs','strapi','nlp']
+
+- name: install docker
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  # gather_facts: False
+  become: yes
+  roles:
+    - docker
+  tags: ['docker','setup']
+
+- name: install nodejs and n
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  become: yes
+  roles:
+    - nodejs
+  tags: ['nodejs','strapi','nlp']
+
+- name: install python
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  # gather_facts: False
+  become: yes
+  roles:
+    - python
+  tags: ['python','nlp']
+
+- name: pip install package in venv
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  # become: yes
+  roles:
+    - pip
+  tags: ['pip','nlp']
+
+- name: go
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  # become: yes
+  roles:
+    - go
+  tags: ['go']
+
+- name: setup Nginx
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  become: yes
+  roles:
+    - role: nginxinc.nginx
+  vars_files:
+    - config/{{nginx}}.yml
+  tags: ['nginx','setup','strapi','nlp']
+
+- name: setup Nginx Unit
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  become: yes
+  roles:
+    - role: nginx-unit
+  tags: ['unit','strapi','nlp']
+
+# - name: install mysql
+#   hosts: "{{server}}"
+#   remote_user: "{{user}}"
+#   become: yes
+#   roles:
+#     - mysql
+#   tags: mysql
+
+- name: deploy nlp
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  # become: yes
+  roles:
+    - deploy-nlp
+  tags: dep-nlp
+
+- name: config firewalld
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  become: yes
+  roles:
+    - firewalld
+  tags: ['firewalld']
+
+- name: config SELinux
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  become: yes
+  roles:
+    - selinux
+  tags: ['selinux']
+
+
+- name: install php
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  become: yes
+  roles:
+    - php
+  tags: ['php']
+
+

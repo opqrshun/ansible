@@ -1,0 +1,24 @@
+- name: venv
+  pip:
+    name: 
+      - pip
+      - scrapy
+      - bottle
+      - falcon
+      - gensim
+      - pymongo
+      - cython
+      - pymagnitude
+      - bs4
+      # - fasttext
+    virtualenv: "/home/{{user}}/venv/pydev"
+    # virtualenv_python: python3
+    virtualenv_command: /usr/local/bin/python3 -m venv
+  become_user: "{{user}}"
+
+- name: add alias
+  lineinfile: 
+    path: "/home/{{user}}/.bashrc"
+    line: "alias pydev='source ~/venv/pydev/bin/activate'"
+  # tags: never
+  # when: not python3_bin.stat.exists

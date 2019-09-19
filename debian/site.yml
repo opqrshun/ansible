@@ -1,0 +1,44 @@
+- name: apply common configuration to all nodes
+  hosts: "{{server}}"
+  sudo: true
+
+  roles:
+    - common
+  tags: ['setup','common']
+
+- name: install docker
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  sudo: true
+  roles:
+    - docker
+  tags: ['docker','setup']
+
+- name: install nodejs and n
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  sudo: true
+  roles:
+    - nodejs
+  tags: ['nodejs','setup']
+
+- name: install python
+  hosts:"{{server}}"
+  remote_user: "{{user}}"
+  sudo: true
+  roles:
+    - python
+  tags: ['python','setup']
+
+- name: pip install packages
+  hosts: "{{server}}"
+  # remote_user: "{{user}}"
+  sudo: true
+
+  roles:
+    - pip
+  tags: ['setup','pip']
+
+
+
+# ansible-playbook -i hosts site.yml  --ask-become-pass 

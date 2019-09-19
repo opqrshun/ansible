@@ -1,0 +1,4 @@
+- name: Make sure a service is running
+  systemd:
+    state: restarted
+    name: docker

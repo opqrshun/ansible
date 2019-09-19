@@ -1,0 +1,73 @@
+CentOS:
+  versions:
+    - 7
+
+nginx_enable: true
+# nginx_unit_enable: true
+# nginx_unit_modules:
+#   - unit-python
+#   - unit-go
+# Start NGINX service.
+# Default is true.
+nginx_start: true
+
+nginx_http_template_enable: true
+nginx_http_template:
+  default:
+    template_file: http/default.conf.j2
+    conf_file_name: default.conf
+    conf_file_location: /etc/nginx/conf.d/
+    port: 80
+    server_name: localhost
+    error_page: /usr/share/nginx/html
+    root: /var/www/
+    https_redirect: false
+    autoindex: false
+    # web_server:
+    #   locations:
+    #     default:
+    #       location: /
+    #       html_file_location: /var/www/
+    #       html_file_name: index.html
+    #       autoindex: false
+    #   http_demo_conf: false
+    reverse_proxy:
+      locations:
+        backend_falcon:
+          location: /
+          proxy_pass: http://backend
+    upstreams:
+      upstream_1:
+        name: backend
+        zone_name: backend
+        zone_size: 64k
+        sticky_cookie: false
+        lb_method: least_conn
+        servers:
+          backend_server_1:
+            address: 127.0.0.1
+            port: 8083
+
+      # upstream_2:
+      #   name: backend_strapi
+      #   zone_name: backend_strapi
+      #   zone_size: 64k
+      #   lb_method: least_conn
+      #   sticky_cookie: false
+      #   servers:
+      #     backend_server_1:
+      #       address: 127.0.0.1
+      #       port: 1337
+      
+          
+
+# map $http_origin $cors {
+#     default "NG";
+#     "http://localhost:8080" "OK";
+# }
+
+
+# add_header Access-Control-Allow-Origin $http_origin;
+# add_header Access-Control-Allow-Methods "POST, GET, OPTIONS";
+# add_header Access-Control-Allow-Headers "Origin, Authorization, Accept";
+# add_header Access-Control-Allow-Credentials true;

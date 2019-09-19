@@ -1,0 +1,67 @@
+---
+# This playbook contains common plays that will be run on all nodes.
+- name: set timezone to Asia/Tokyo
+  timezone:
+    name: Asia/Tokyo
+
+# /etc/resolv.confにこれ追加しておく docker上でのdns解決
+# # Google nameservers
+# nameserver 8.8.8.8
+# nameserver 8.8.4.4
+
+- name: yum update
+  yum: name=* state=latest
+
+- name: Install common dependencies
+  yum: name={{ item }} state=installed
+  with_items:
+   - epel-release
+   - libselinux-python
+   - libsemanage-python
+   - setools-console #seinfoコマンド
+   - python-setuptools
+   - tmux
+   - git
+   - lsof
+   - cmake
+#    - htop
+#    - snapd
+
+   #  sudo systemctl enable --now snapd.socket
+   # sudo ln -s /var/lib/snapd/snap /snap
+
+- name: install the 'Development tools' package group
+  yum:
+    name: "@Development tools"
+    state: present
+
+- name: install dev package
+  yum: name={{ item }} state=installed
+  with_items:
+   - bzip2-devel
+   - gdbm-devel
+   - libffi-devel
+   - libuuid-devel
+   - ncurses-devel
+   - openssl-devel
+   - readline-devel
+   - sqlite-devel
+   - tk-devel
+   - wget
+   - neovim
+   - htop
+   - xz-devel
+   - zlib-devel
+   - httpd-tools # basic 認証の時必要
+   
+# - name: install rust
+#   shell: |
+#     curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly
+
+
+# - name: install docker
+#   snap:
+#     name: docker
+
+# - name: snap enable
+#   command: systemctl enable --now snapd.socket

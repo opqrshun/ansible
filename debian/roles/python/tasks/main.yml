@@ -1,0 +1,32 @@
+- name: check python3 already installed
+  stat:
+    path: /usr/local/bin/python3
+  register: python3_bin
+
+- file:
+    path: '{{home_path}}/{{ item.path }}'
+    owner: "{{user}}"
+    group: "{{user}}"
+    state: directory
+
+  with_items:
+    - { path: 'tmp'}
+    - { path: 'venv'}
+
+- name: download python
+  get_url:
+    url: "{{ python_url }}"
+    dest: "{{ home_path }}/tmp"
+  when: not python3_bin.stat.exists
+
+- name: make python 
+  shell: |
+    cd tmp
+    tar xzf "Python-{{python_version}}.tgz"
+    cd "Python-{{python_version}}" 
+    ./configure --enable-shared
+    make
+    make install
+    sh -c "echo '/usr/local/lib' > /etc/ld.so.conf.d/custom_python3.conf"
+    ldconfig
+  when: not python3_bin.stat.exists

@@ -1,0 +1,18 @@
+- name: go
+  snap:
+    name:
+      - go
+    classic: yes
+
+- name: go get
+  shell: |
+    curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+    go get github.com/pilu/fresh
+    go get github.com/go-playground/universal-translator
+
+- name: add path
+  blockinfile:
+    path: "/home/{{user}}/.bashrc"
+    block: |
+      export GOPATH="$HOME/go"
+      export PATH="$GOPATH/bin:$PATH"

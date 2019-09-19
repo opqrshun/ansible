@@ -1,0 +1,14 @@
+[Unit]
+Description=NGINX Unit
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/unit/sbin/unitd --no-daemon --user nginx --group nginx
+ExecReload=
+RuntimeDirectory=unit
+RuntimeDirectoryMode=0755
+WorkingDirectory=/usr/local/unit/
+[Install]
+WantedBy=multi-user.target            

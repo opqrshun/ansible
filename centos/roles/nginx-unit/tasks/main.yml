@@ -1,0 +1,45 @@
+- file:
+    path: '/var/app/'
+    owner: "nginx"
+    group: "nginx"
+    state: directory
+
+- file:
+    path: '/usr/local/unit'
+    owner: "root"
+    group: "root"
+    state: directory
+
+- name: download unit
+  get_url:
+    url: "https://github.com/nginx/unit/archive/{{unit_version}}.tar.gz"
+    dest: "/home/{{user}}/tmp"
+
+- name: make unit 
+  shell: |
+    cd tmp
+    tar xfvz "unit-{{unit_version}}.tar.gz"
+    cd "unit-{{unit_version}}" 
+    ./configure
+    ./configure python --config=/usr/local/bin/python{{python_version}}-config
+    make all
+    make install DESTDIR=/usr/local/unit/
+    
+
+- name: Template a file to systemd
+  template:
+    src: unit.service
+    dest: /etc/systemd/system/
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Allow httpd to /var/app
+  sefcontext:
+    target: '/var/app(/.*)?'
+    seuser: system_u
+    setype: httpd_sys_content_t
+    state: present
+
+- name: Apply new SELinux file context to filesystem
+  command: restorecon -FR /var/app
