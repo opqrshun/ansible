@@ -1,0 +1,18 @@
+# updateしておく
+- name: yum update
+  yum: name=* state=latest
+
+- name: install monitoring tools
+  yum: name={{ item }} state=installed
+  with_items:
+    - audit
+    - systemtap
+    - systemtap-runtime
+
+- name: systemtap
+  command: yum --disablerepo=* --enablerepo=base-debuginfo \
+     -y install kernel-devel-$(uname -r) kernel-debuginfo-$(uname -r) kernel-debuginfo-common-$(uname -m)-$(uname -r)
+
+- name: fluentd
+  command: curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent3.sh | sh
+

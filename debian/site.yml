@@ -23,7 +23,7 @@
   tags: ['nodejs','setup']
 
 - name: install python
-  hosts:"{{server}}"
+  hosts: "{{server}}"
   remote_user: "{{user}}"
   sudo: true
   roles:

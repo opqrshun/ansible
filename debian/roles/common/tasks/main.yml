@@ -1,36 +1,55 @@
 ---
 # This playbook contains common plays that will be run on all nodes.
 
-# - name: apt update
-#   apt: name=* state=latest
-
 - name: Install common dependencies
-  apt: name={{ item }} state=installed
-  with_items:
-   # - libselinux-python
-   # - libsemanage-python
-   - python-setuptools
-   - tmux
-   - git
-   - nmap
-   - php
-   - htop
-   # - lsof
-   # - snapd
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+    - python-setuptools
+
+# apt full-upgrade
+- name: Update all packages to the latest version
+  apt:
+    upgrade: full
+
+  # aptにはない
+  #  - libselinux-python
+  #  - libsemanage-python
+- name: Install common dependencies
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+    - python-setuptools
+    - selinux
+    - zsh
+    - tmux
+    - git
+    - nmap
+    - htop
+    - neovim
+    # - lsof
+    # - snapd
+    # - php
+  
 
 - name: install the 'Development tools' package group
   apt:
     name: "build-essential"
     state: present
-    force_apt_get: yes
 
-- name: github
-  snap:
-    name:
-      - github-desktop
-    channel: beta
-    classic: yes
-  tags: ['desktop']
+# - name: github
+#   snap:
+#     name:
+#       - github-desktop
+#     channel: beta
+#     classic: yes
+#   tags: ['desktop']
+
+
 # - name: install dev package
 #   apt: name={{ item }} state=installed
 #   with_items:

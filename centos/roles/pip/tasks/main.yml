@@ -1,15 +1,16 @@
 - name: venv
   pip:
     name: 
-      - pip
-      - scrapy
-      - bottle
-      - falcon
-      - gensim
-      - pymongo
-      - cython
-      - pymagnitude
-      - bs4
+      # - pip
+      # - scrapy
+      # - bottle
+      # - falcon
+      # - gensim
+      # - pymongo
+      # - cython
+      # - pymagnitude
+      # - bs4
+      - pandas
       # - fasttext
     virtualenv: "/home/{{user}}/venv/pydev"
     # virtualenv_python: python3

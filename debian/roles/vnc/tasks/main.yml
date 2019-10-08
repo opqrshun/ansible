@@ -1,0 +1,25 @@
+---
+# This playbook contains common plays that will be run on all nodes.
+
+- name: Install common dependencies
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+    - xfce4
+    - xfce4-goodies
+    - tightvncserver
+
+- name: add repository vivaldi
+  shell: |
+    wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | sudo apt-key add -
+    sudo add-apt-repository 'deb https://repo.vivaldi.com/archive/deb/ stable main'
+
+- name: Install common dependencies
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+    - vivaldi-stable

@@ -1,11 +1,11 @@
-- name: Create a 2048-bit SSH key for user developer
+- name: Create a 4096-bit SSH key for user developer
   user:
     name: "{{creat_user}}"
     generate_ssh_key: yes
-    ssh_key_bits: 2048
+    ssh_key_bits: 4096
     ssh_key_file: .ssh/id_rsa
     groups: wheel
-    password: "{{ 'sudo_password'|password_hash('sha512') }}"
+    password: "{{ 'pass'|password_hash('sha512') }}"
     ssh_key_passphrase: "{{key_passphrase}}"
     update_password: always
 

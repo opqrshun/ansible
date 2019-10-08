@@ -1,12 +1,12 @@
-- name: Allow httpd to /var/www
-  sefcontext:
-    target: '/var/www(/.*)?'
-    seuser: system_u
-    setype: httpd_sys_content_t
-    state: present
+# - name: Allow httpd to /var/www
+#   sefcontext:
+#     target: '/var/www(/.*)?'
+#     seuser: system_u
+#     setype: httpd_sys_content_t
+#     state: present
 
 # - name: Apply new SELinux file context to filesystem
-  command: restorecon -FR /var/www
+#   command: restorecon -FR /var/www
 
 - name: Set httpd_can_network_connect flag on and keep it persistent across reboots
   seboolean:

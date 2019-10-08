@@ -20,11 +20,14 @@
    - libsemanage-python
    - setools-console #seinfoコマンド
    - python-setuptools
+   - zsh
    - tmux
    - git
    - lsof
    - cmake
-#    - htop
+   - yum-utils
+   - htop
+   - neovim
 #    - snapd
 
    #  sudo systemctl enable --now snapd.socket
@@ -63,5 +66,3 @@
 #   snap:
 #     name: docker
 
-# - name: snap enable
-#   command: systemctl enable --now snapd.socket
