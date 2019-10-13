@@ -1,3 +1,11 @@
+- name: create user
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  become: yes
+  roles:
+    - create-user
+  tags: ['user']
+  
 - name: apply common configuration to all nodes
   hosts: "{{server}}"
   sudo: true

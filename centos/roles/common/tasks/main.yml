@@ -9,26 +9,30 @@
 # nameserver 8.8.8.8
 # nameserver 8.8.4.4
 
-- name: yum update
-  yum: name=* state=latest
+- name: upgrade all packages
+  yum:
+    name: '*'
+    state: latest
 
 - name: Install common dependencies
-  yum: name={{ item }} state=installed
-  with_items:
-   - epel-release
-   - libselinux-python
-   - libsemanage-python
-   - setools-console #seinfoコマンド
-   - python-setuptools
-   - zsh
-   - tmux
-   - git
-   - lsof
-   - cmake
-   - yum-utils
-   - htop
-   - neovim
-#    - snapd
+  yum: 
+    name:
+      - epel-release
+      - libselinux-python
+      - libsemanage-python
+      - setools-console #seinfoコマンド
+      - python-setuptools
+      - zsh
+      - tmux
+      - git
+      - lsof
+      - cmake
+      - yum-utils
+      - htop
+      - neovim
+    state: present
+
+    #    - snapd
 
    #  sudo systemctl enable --now snapd.socket
    # sudo ln -s /var/lib/snapd/snap /snap

@@ -1,5 +1,7 @@
----
 # This playbook contains common plays that will be run on all nodes.
+- name: set timezone to Asia/Tokyo
+  timezone:
+    name: Asia/Tokyo
 
 - name: Install common dependencies
   apt:

@@ -1,6 +1,9 @@
 # updateしておく
-- name: yum update
-  yum: name=* state=latest
+# systemtapでカーネルversionを合わせるため、再起動が必要かも
+- name: upgrade all packages
+  yum:
+    name: '*'
+    state: latest
 
 - name: install monitoring tools
   yum: name={{ item }} state=installed
