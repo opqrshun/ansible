@@ -7,10 +7,23 @@
 
 - name: install monitoring tools
   yum: name={{ item }} state=installed
-  with_items:
-    - audit
+    name:
+    - openscap-scanner #脆弱性スキャン
+    - scap-security-guide
+    - openscap-utils #oscap-docker
+    - audit #システムコール等の監視
+    - aide #改竄検知
     - systemtap
     - systemtap-runtime
+
+
+# sshd_configにALLOW_SSH_ROOT_USER=noを書き込んでおく
+- name: Install rkhunter with repo epel
+  yum:
+    name: 
+      - rkhunter
+    enablerepo: "epel"
+    state: present
 
 - name: systemtap
   command: yum --disablerepo=* --enablerepo=base-debuginfo \

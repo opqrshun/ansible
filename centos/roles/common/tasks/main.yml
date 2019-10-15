@@ -17,19 +17,19 @@
 - name: Install common dependencies
   yum: 
     name:
-      - epel-release
-      - libselinux-python
-      - libsemanage-python
-      - setools-console #seinfoコマンド
-      - python-setuptools
-      - zsh
-      - tmux
-      - git
-      - lsof
-      - cmake
-      - yum-utils
-      - htop
-      - neovim
+     - epel-release
+     - libselinux-python
+     - libsemanage-python
+     - setools-console #seinfoコマンド
+     - python-setuptools
+     - zsh
+     - tmux
+     - git
+     - lsof
+     - cmake
+     - yum-utils
+     - htop
+     - neovim
     state: present
 
     #    - snapd
