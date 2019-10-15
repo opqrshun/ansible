@@ -27,9 +27,10 @@
      - git
      - lsof
      - cmake
+     - wget
      - yum-utils
-     - htop
-     - neovim
+    #  - neovim
+    #  - htop
     state: present
 
     #    - snapd
@@ -43,23 +44,22 @@
     state: present
 
 - name: install dev package
-  yum: name={{ item }} state=installed
-  with_items:
-   - bzip2-devel
-   - gdbm-devel
-   - libffi-devel
-   - libuuid-devel
-   - ncurses-devel
-   - openssl-devel
-   - readline-devel
-   - sqlite-devel
-   - tk-devel
-   - wget
-   - neovim
-   - htop
-   - xz-devel
-   - zlib-devel
-   - httpd-tools # basic 認証の時必要
+  yum: 
+    name:
+      - bzip2-devel
+      - gdbm-devel
+      - libffi-devel
+      - libuuid-devel
+      - ncurses-devel
+      - openssl-devel
+      - readline-devel
+      - sqlite-devel
+      - tk-devel
+      - xz-devel
+      - zlib-devel
+      - httpd-tools # basic 認証の時必要
+    state: present
+   
    
 # - name: install rust
 #   shell: |
