@@ -1,0 +1,43 @@
+---
+# ansible-playbook -i hosts/test site.yml --tags setup --extra-vars "server=test user=centos"
+- name: exec common configuration
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  become: yes
+  roles:
+    - common
+  tags: ['common','setup']
+
+
+- name: setup Apache
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  # become: yes
+  roles:
+    - role: geerlingguy.apache
+  vars_files:
+    - config_secret/apache.yml
+  tags: ['apache','setup']
+
+# - name: setup Mysql
+#   hosts: "{{server}}"
+#   remote_user: "{{user}}"
+#   become: yes
+#   roles:
+#     - role: geerlingguy.mysql
+#   vars_files:
+#     - config_secret/mysql.yml
+#   tags: ['mysql','setup']
+
+# - name: setup phpMyadmin
+#   hosts: "{{server}}"
+#   remote_user: "{{user}}"
+#   become: yes
+#   roles:
+#     - role: geerlingguy.phpmyadmin
+#   vars_files:
+#     - config_secret/phpmyadmin.yml
+#   tags: ['phpmyadmin','setup']
+
+
+

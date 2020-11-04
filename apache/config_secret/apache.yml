@@ -1,0 +1,12 @@
+apache_global_vhost_settings: |
+  DirectoryIndex index.php index.html
+
+apache_create_vhosts: true
+
+apache_vhosts:
+  - servername: "test.taki-system.net"
+    serveralias: "test.taki-system.net"
+    documentroot: "/var/www/test.taki-system.net"
+  - servername: "test2.taki-system.net"
+    serveralias: "test2.taki-system.net"
+    documentroot: "/var/www/test2.taki-system.net"

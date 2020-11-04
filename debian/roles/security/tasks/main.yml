@@ -9,6 +9,7 @@
     packages:
     # - selinux
     - auditd
+    - apparmor apparmor-utils
 
 
 # - name: yum update

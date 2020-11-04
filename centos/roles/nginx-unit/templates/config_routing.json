@@ -1,0 +1,73 @@
+{
+    "listeners": {
+        "*:55325": {
+            "pass": "routes"
+        }
+    },
+    "routes": [
+        {
+            "match": {
+                "uri": "/suggestword/*"
+            },
+            "action": {
+                "pass": "applications/py-app"
+            }
+        },
+        {
+            "match": {
+                "uri": "/classfication/*"
+            },
+            "action": {
+                "pass": "applications/py-classfication"
+            }
+        }
+    ],
+    "applications": {
+        "py-app": {
+            "type": "python 3.7.3",
+            "working_directory": "/var/app/",
+            "path": "suggestword",
+            "home": "/home/centos/venv/pydev",
+            "module": "falcon_mag",
+            "user": "centos",
+            "group": "centos",
+            "limits": {
+                "timeout": 100,
+                "requests": 1000
+            },
+            "processes": {
+                "max": 10,
+                "spare": 1,
+                "idle_timeout": 20
+            },
+            "environment": {
+                "MODEL_PATH": "/home/centos/daijirin.magnitude",
+                "MODEL_PATH_1": "/home/centos/kokugoken_vec.magnitude",
+                "MODEL_PATH_2": "/home/centos/hafuri_vec.magnitude",
+                "MODEL_PATH_3": "/home/centos/wiki_all_basic_10.magnitude"
+                
+            }
+        },
+        "py-classfication": {
+            "type": "python 3.7.3",
+            "working_directory": "/var/app/",
+            "path": "nlp",
+            "home": "/home/centos/venv/pydev",
+            "module": "classfication_text",
+            "user": "centos",
+            "group": "centos",
+            "limits": {
+                "timeout": 100,
+                "requests": 1000
+            },
+            "processes": {
+                "max": 10,
+                "spare": 1,
+                "idle_timeout": 20
+            },
+            "environment": {
+                "MODEL_PATH_1": "/home/centos/kokugoken_vec.magnitude"
+            }
+        }
+    }
+}

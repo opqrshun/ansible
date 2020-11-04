@@ -1,0 +1,4 @@
+apache_vhosts:
+  - servername: "mandala.shirakawagakkan.jp"
+    serveralias: "mandala.shirakawagakkan.jp"
+    documentroot: "/var/www/html"

@@ -1,0 +1,13 @@
+# Databases.
+mysql_databases:
+  - name: mandala
+    collation: utf8mb4_unicode_ci
+    encoding: utf8mb4
+    replicate: 1
+
+# Users.
+mysql_users:
+  - name: mandala_master
+    host: "%"
+    password: U2bKqKa2q8UzpQebEt4V9xLPVeB
+    priv: "*.*:ALL"

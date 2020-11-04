@@ -67,6 +67,36 @@
     - config/{{nginx}}.yml
   tags: ['nginx','setup','strapi','nlp']
 
+- name: setup Apache
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  become: yes
+  roles:
+    - role: geerlingguy.apache
+  vars_files:
+    - config_secret/apache.yml
+  tags: ['apache']
+
+- name: setup Mysql
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  become: yes
+  roles:
+    - role: geerlingguy.mysql
+  vars_files:
+    - config_secret/mysql.yml
+  tags: ['mysql']
+
+- name: setup phpMyadmin
+  hosts: "{{server}}"
+  remote_user: "{{user}}"
+  become: yes
+  roles:
+    - role: geerlingguy.phpmyadmin
+  vars_files:
+    - config_secret/phpmyadmin.yml
+  tags: ['phpmyadmin']
+
 - name: setup Nginx Unit
   hosts: "{{server}}"
   remote_user: "{{user}}"

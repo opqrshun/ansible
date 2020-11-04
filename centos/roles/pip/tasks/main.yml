@@ -10,6 +10,7 @@
       # - cython
       # - pymagnitude
       # - bs4
+      # - mecab-python3
       - pandas
       # - fasttext
     virtualenv: "/home/{{user}}/venv/pydev"
